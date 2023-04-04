@@ -1,0 +1,3 @@
+import Tree
+
+Tree.main()
