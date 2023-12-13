@@ -1,0 +1,92 @@
+# Cracking google
+# 4,2 Minimal Tree: Given a sorted (increasing order) array with unique
+# integer elements, write an
+# algorithm to create a binary search tree with minima! height.
+
+class Node():
+    def __init__(self, data, left, right):
+        self.data = data
+        self.left = left
+        self.right = right
+
+class MakeBalancedTree():
+    def __init__(self):
+        print('started')
+        self.sorted_list = [1,2,3,4,5,6,7]
+        self.root_node = Node(None, None, None)
+        print(self.sorted_list)
+
+        print('Make Tree')
+        self.MakeTree(self.sorted_list)
+
+        print('Root node data is ', self.root_node.data)
+
+        print('\n\nLDR Traversal')
+        # self.LDR(self.root_node)
+        # self.DLR(self.root_node)
+        # self.LRD(self.root_node)
+        print('In order traversal')
+        self.InOrderQ = [self.root_node]
+        self.InOrderTraversal()
+
+    def MakeTree(self, list_in):
+        if len(list_in) < 1 :
+            return
+
+        # print('--', list_in)
+        mid = int(len(list_in) / 2)
+        print(mid, '  ', list_in[mid])
+        a = Node(list_in[mid], None, None)
+
+        # Populate the root node if it is NULL
+        if not self.root_node.data:
+            print('Making the root node. Data=', a.data)
+            self.root_node = a
+
+        a.left = self.MakeTree(list_in[:mid])
+        a.right = self.MakeTree(list_in[mid+1:])
+        return a
+
+
+
+    def LDR(self, node):
+        if not node.left and not node.right:
+            print(node.data)
+            return
+
+        self.LDR(node.left)
+        print(node.data)
+        self.LDR(node.right)
+
+
+    def DLR(self, node):
+        if not node.left and not node.right:
+            print(node.data)
+            return
+
+        print(node.data)
+        self.DLR(node.left)
+        self.DLR(node.right)
+
+    def LRD(self, node):
+        if not node.left and not node.right:
+            print(node.data)
+            return
+
+        self.LRD(node.left)
+        self.LRD(node.right)
+        print(node.data)
+
+            
+    def InOrderTraversal(self):
+        while self.InOrderQ:
+            # print('dabba')
+            top_node = self.InOrderQ.pop(0)
+            print(top_node.data)
+            if top_node.left:
+                self.InOrderQ.append(top_node.left)
+            if top_node.right:
+                self.InOrderQ.append(top_node.right)
+
+
+x = MakeBalancedTree()
