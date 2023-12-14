@@ -1,0 +1,29 @@
+'''
+Find id a string is a palindrone
+'''
+
+
+class Palin():
+    def __init__(self, in_str):
+        self.in_str = in_str.replace(' ', '').lower()
+        print('Hi: ', in_str)
+
+        left = 0
+        right = len(self.in_str)
+        is_palin = True
+
+        while left < right:
+            if self.in_str[left] != self.in_str[right-1]:
+                is_palin = False
+                break
+            left += 1
+            right -= 1
+
+        print('in_str =', self.in_str, ' Is Palin=', is_palin)
+
+
+
+
+
+
+x = Palin('On a CLover if alive erupts a vast pure evil a fire volcano')
