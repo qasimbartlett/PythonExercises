@@ -1,0 +1,29 @@
+'''
+Triplets that sum to zero (medium)
+'''
+from copy import copy, deepcopy
+
+class Triplets():
+    def __init__(self, in_list):
+        self.in_list = in_list
+        print('Hi', self.in_list)
+
+        # Find 3 numbers that add to a 0
+        for i in range(len(self.in_list)):
+            temp_list = deepcopy(self.in_list)
+            first_num = temp_list.pop(i)
+            self.Find2Numbers(temp_list, first_num)
+
+
+    def Find2Numbers(self, in_list, target_num):
+        left = 0
+        right = len(in_list)
+        while left < right:
+            left_num = in_list[left]
+            right_num = in_list[right-1]
+            left += 1
+            right -= 1
+            if left_num + right_num + target_num == 0:
+                print('Found the triplet.', target_num, ' ', left_num, ' ', right_num)
+
+x = Triplets([-2, 0, 1, 1, 2])
