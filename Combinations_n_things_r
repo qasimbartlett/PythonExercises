@@ -1,0 +1,33 @@
+class Combos:
+    def __init__(self, in_pattern, width):
+        print('Hi there')
+        all_combos = self.Combos(in_pattern, width)
+        print(all_combos)
+
+    def Combos(self, pattern, width):
+        if width == 1:
+            return list(pattern)
+        if len(pattern) == width:
+            return [pattern]
+
+        all_combos = []
+        for i in range(len(pattern)):
+            # Extract a extracted_character
+            extracted_character = pattern[i]
+            new_pattern = pattern[:i] + pattern[i + 1:]
+
+            # Find all combos without the extracted character
+            without_combos = self.Combos(new_pattern, width)
+
+            # Find all combos that include the extracted combos
+            with_combos = self.Combos(new_pattern, width - 1)
+            # Append the extracted character to all combos_with_extracted_character
+            with_combos_new = []
+            for comb in with_combos:
+                with_combos_new.append(extracted_character + comb)
+
+            all_combos = all_combos + with_combos_new + without_combos
+            return all_combos
+
+
+X = Combos('abcde', 3)
