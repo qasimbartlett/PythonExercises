@@ -1,0 +1,45 @@
+class Permus():
+    def __init__(self, in_str, width):
+        print('Hi there')
+        all_perms = self.AddChar('X', ['abc'])
+        all_perms = list(set(self.Permutations(in_str, width)))
+        print('---', all_perms)
+
+    def Permutations(self, in_str, width):
+        print(in_str, width)
+
+        if width == 1:
+            return [in_str]
+
+        all_permus = []
+        for i in range(len(in_str)):
+            # Extract the char and create a new sub-string
+            char = in_str[i]
+            new_in_str = in_str[:i] + in_str[i + 1:]
+
+            # Permutations that include char
+            permus_with_char = self.AddChar(char, self.Permutations(new_in_str, width-1))
+
+            # Permutations without char
+            permus_without_char = self.Permutations(new_in_str, width)
+
+            all_permus = all_permus + permus_with_char + permus_without_char
+        return all_permus
+
+
+    def AddChar(self, in_char, in_list_of_patterns):
+        # Add in_char to the in_list_of_patterns at different indexex
+        # eg:  X, ['pqr', 'stu']
+        #         ['Xprq', 'pXqr', 'pqXr', 'pqrX', 'Xstu', 'sXtu', 'stXu', 'stuX']
+        appended_list_of_patterns = []
+        for patten in in_list_of_patterns:
+            for i in range(len(patten)):
+                new_pattern = patten[:i] + in_char + patten[i:]
+                # print(patten, ' ', new_pattern)
+                appended_list_of_patterns.append(in_char + patten)
+                appended_list_of_patterns.append(patten + in_char)
+                appended_list_of_patterns.append(new_pattern)
+        return list(set(appended_list_of_patterns))
+
+
+X = Permus('abc', 3)
