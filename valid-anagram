@@ -1,0 +1,38 @@
+
+'''
+https://leetcode.com/problems/valid-anagram/description/
+'''
+
+from collections import defaultdict 
+
+class Anagram:
+    def __init__(self):
+        print('Start')
+
+    def isAnagram(self, str1, str2):
+        print('isAnagram: True')
+        ret = True
+        if len(str1) == len(str2):
+            str1_dict = self.ReturnDict(str1)
+            str2_dict = self.ReturnDict(str2)
+            if str1_dict.keys() == str2_dict.keys() and str1_dict.values() == str2_dict.values():
+                ret = True
+            else:
+                ret = False
+        else:
+            ret = False
+        return ret
+
+    # Convert str to dict
+    def ReturnDict(self, str):
+        ret = defaultdict(int)
+        for i in str:
+            ret[i] += 1
+        return ret
+
+x = Anagram()
+
+str1 = 'anagram'
+str2 = 'nagaram'
+ret = x.isAnagram(str1, str2)
+print(str1, ' ', str2, ' Are anagrams?:', ret)
