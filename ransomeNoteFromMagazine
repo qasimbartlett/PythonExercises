@@ -1,0 +1,43 @@
+'''
+https://leetcode.com/problems/ransom-note/submissions/1149415612/
+Given two strings ransomNote and magazine, return true if ransomNote can be constructed by using the letters from magazine and false otherwise.
+
+Each letter in magazine can only be used once in ransomNote.
+
+
+'''
+from collections import defaultdict
+
+class ransomeNoteFromMagazine():
+    def __init__(self):
+        print('hi')
+    
+    def CheckIfRansomnNoteCanBeCreatedFromMagazine(self, ransomNote, magazine):
+        magazine_dict = defaultdict(int)
+        # Create a dictionary of all letters from the magazine
+        for i in magazine:
+            magazine_dict[i] += 1
+        
+        possible = True
+        # Check if each character in ransomenote is in magazinr
+        for i in ransomNote:
+            if magazine_dict.get(i):
+                magazine_dict[i] -= 1
+            else:
+                possible = False
+                break
+        return possible
+
+
+
+ransomNote = "a"
+magazine = "b"
+ransomNote = "aa"
+magazine = "ab"
+ransomNote = "aa"
+magazine = "aab"
+
+
+x = ransomeNoteFromMagazine()
+y = x.CheckIfRansomnNoteCanBeCreatedFromMagazine(ransomNote, magazine)
+print(y)
