@@ -1,0 +1,66 @@
+'''
+https://leetcode.com/problems/add-binary/description/
+Given two binary strings a and b, return their sum as a binary string.
+
+'''
+
+
+from collections import defaultdict
+
+
+class classAddBinary:
+    def __init__(self):
+        print('abba')
+
+    def add2Digits(self, a1, b1, carry_in):
+        answers_dict = defaultdict()
+        answers_dict['000'] = (0, 0)
+        answers_dict['001'] = (1, 0)
+        answers_dict['010'] = (1, 0)
+        answers_dict['011'] = (0, 1)
+        answers_dict['100'] = (1, 0)
+        answers_dict['101'] = (0, 1)
+        answers_dict['110'] = (0, 1)
+        answers_dict['111'] = (1, 1)
+        #print('1. a, b, carry_in', a1, b1, carry_in)
+        ans = answers_dict[str(a1)+str(b1)+str(carry_in)]
+        #print('2 ', ans)
+
+        return ans
+
+        
+
+    def MakeThemSameSize(self, str1, str2):
+        if len(str1) > len(str2):
+            str2 = str2.zfill(len(str1))
+        elif len(str2) > len(str1):
+            str1 = str1.zfill(len(str2))
+        
+        return (str1, str2)
+
+    def AddBinary(self, str1, str2):
+        str1, str2 = self.MakeThemSameSize(str1, str2)
+        carry = 0
+        ans = ''
+        for i in range(len(str1)):
+            a1 = str1[len(str1) - i - 1 ]           
+            b1 = str2[len(str2) - i - 1 ]
+            c1, carry = self.add2Digits(a1, b1, carry)
+            ans += str(c1)
+            # print('3 ', ans)
+        if carry:
+            return str(carry) + ans[::-1]
+        else:
+            return ans[::-1]
+
+
+
+
+
+a = "1010"
+b = "1011"
+x = classAddBinary()
+print('a.     = ', a)
+print('b.     = ', b)
+y = x.AddBinary(a, b)
+print('Result = ', y)
