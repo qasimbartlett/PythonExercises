@@ -4,6 +4,7 @@ import pytest
 class rotate():
 
     # 1st Iteration
+    # Complexity: Run-time=O(n).  Space=O(n)
     def moveLeft(self, in_arr, rotations):      
         try:
             if rotations < 0:
@@ -33,6 +34,7 @@ class rotate():
     # Move 2 to left, now x = [3,4,5,1,2] ie x[2:] + x[:2]
     # Move 3 to left, now x = [4,5,1,2,3] ie x[3:] + x[:3]
     # Move 4 to left, now x = [5,1,2,3,4] ie x[4:] + x[:4]
+    # Complexity: Run-time=O(1).  Space=O(n)
     def moveLeft_2(self, in_arr, rotations):      
         try:
             if rotations < 0:
