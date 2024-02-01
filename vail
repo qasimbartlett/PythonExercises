@@ -1,0 +1,86 @@
+'''
+The problem we would like you to solve deals with an array of integers. We want to rotate these integers
+to a specified number of positions to the left.
+If for example you have an array of integers [1,2,3,4,5,6,7] and we would like to rotate 2 positions to the
+left, the solution expected would be [3,4,5,6,7,1,2].
+Note: the solution should be able to handle a position value greater than the number of integers in the
+array. If, for example, we would like to rotate [1,2,3,4,5,6,7] 8 positions to left, it would produce the
+result [2,3,4,5,6,7,1]. Negative values for the positions to rotate will throw an error which the code
+example should handle gracefully.
+'''
+
+import unittest
+import pytest
+
+class rotate():
+
+    # 1st Iteration
+    def moveLeft(self, in_arr, rotations):      
+        try:
+            if rotations < 0:
+                raise ValueError
+    
+            # If we rotate any list N times where N is len(list) then 
+            # we are back to the same list / arrangement. So we can skip such rotations
+            lengthOfList = len(in_arr)
+            if lengthOfList > 1:
+                true_rotations = rotations % lengthOfList
+                if true_rotations > 0:
+
+                # To rotate left: Pop ie remove the 1st item from list and put it at end of the list
+                    for i in range(true_rotations):
+                        temp = in_arr.pop(0)
+                        in_arr[:] =  in_arr + [temp]
+            return in_arr
+
+        except ValueError:
+            print('# of rotations is -ve')
+
+
+    # 2nd Iteration: Can we see a pattern and extract some mathematical formula
+    # Move 0; x = [1,2,3,4,5]
+    # Move 1 to left, now x = [2,3,4,5,1] ie x[1:] + x[:1]
+    # Move 2 to left, now x = [3,4,5,1,2] ie x[2:] + x[:2]
+    # Move 3 to left, now x = [4,5,1,2,3] ie x[3:] + x[:3]
+    # Move 4 to left, now x = [5,1,2,3,4] ie x[4:] + x[:4]
+    def moveLeft_2(self, in_arr, rotations):      
+        try:
+            if rotations < 0:
+                raise ValueError
+    
+            # If we rotate any list N times where N is len(list) then 
+            # we are back to the same list / arrangement. So we can skip such rotations
+            lengthOfList = len(in_arr)
+            if lengthOfList > 1:
+                true_rotations = rotations % lengthOfList
+                if true_rotations > 0:
+                    in_arr[:] = in_arr[true_rotations:] + in_arr[:true_rotations]
+            return in_arr
+
+        except ValueError:
+            print('# of rotations is -ve')
+
+
+
+
+
+# Some unit tests
+class TestRotate(unittest.TestCase):
+
+    # We can parameterize these tests, but coderpad io not supporting 
+    # from parameterized import parameterized.
+    def test_1(self):
+        x = rotate()
+        for nums, rotations, expected in [
+            ([1,2,3,4,5,6,7], 2,[3,4,5,6,7,1,2]), 
+            ([1,2,3,4,5,6,7], 8,[2,3,4,5,6,7,1]),
+            ([1,2,3,4,5,6,7], 1,[2,3,4,5,6,7,1]),
+            ([],  2, []),
+            ([],  0, []),
+            ([1], 2, [1]),
+            ([1], 0, [1])]:
+            ans = x.moveLeft(nums, rotations)
+            self.assertListEqual(ans, expected)
+
+if __name__ == '__main__':
+    unittest.main()
