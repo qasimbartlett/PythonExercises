@@ -1,0 +1,82 @@
+'''
+https://leetcode.com/problems/increasing-triplet-subsequence/description/?envType=study-plan-v2&envId=leetcode-75
+'''
+class Solution(object):
+    def __init__(self):
+        print('Abba')
+    
+    def FindIndexOfLowestx(self, nums, index):
+        if index >= len(nums):
+            index_of_lowest = len(nums)-1
+        else:
+            index_of_lowest = index
+            lowest_num = nums[index]
+            for i in range(index, len(nums)):
+                if nums[i] < lowest_num:
+                    lowest_num = nums[i]
+                    index_of_lowest = i
+        return index_of_lowest
+
+
+    def increasingTripletx(self, nums):
+        print('Dabba nums= ', nums)
+        Lowest_1 = self.FindIndexOfLowest(nums, 0)
+        print('Lowest_1 = ', Lowest_1)
+
+        Lowest_2 = self.FindIndexOfLowest(nums, Lowest_1+1)
+        print('Lowest_2 = ', Lowest_2)
+
+        Lowest_3 = self.FindIndexOfLowest(nums,Lowest_2+1)
+        print('Lowest_3 = ', Lowest_3)
+
+        if Lowest_1 < Lowest_2 < Lowest_3:
+            return True
+        else:
+            return False
+
+    def increasingTriplety(self, nums):
+        lowest = nums[0]
+        second_lowest = nums[0]
+        result = False
+        for i in nums[0:]:
+            print("\n\n")
+            print('1. ', lowest, ' ', second_lowest)
+            if i < lowest:
+                lowest = i
+            elif i > lowest and i < second_lowest:
+                second_lowest = i
+            elif i > second_lowest:
+                result = True       
+            print('2. ', lowest, ' ', second_lowest)
+
+        print(lowest, ' ', second_lowest, ' ', i, ' ', result)
+        return result
+
+    def increasingTriplet(self, nums):
+        first_min = float('inf')
+        second_min = float('inf')
+        
+        for num in nums:
+            print("\n\n")
+            print('1. ', first_min, ' ', second_min)
+            if num <= first_min:
+                first_min = num
+            elif num <= second_min:
+                second_min = num
+            else:
+                return True
+            print('2. ', first_min, ' ', second_min)
+
+        return False 
+
+nums = [1,2,3,4,5]
+nums = [5,4,3,2,1]
+nums = [2,1,5,0,4,6]
+# nums = [20,100,10,12,5,13]
+nums = [5,1,6]
+nums = [5,1,5,5,2,5,4]
+
+
+x = Solution()
+result = x.increasingTriplet(nums)
+print(result)
