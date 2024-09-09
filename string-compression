@@ -1,0 +1,53 @@
+'''
+https://leetcode.com/problems/string-compression/description/?envType=study-plan-v2&envId=leetcode-75
+'''
+
+
+from copy import copy, deepcopy
+
+class solution(object):   
+    def compress(self, chars):
+        print(chars)
+        if len(chars) == 1:
+            result_str = chars
+            return 1
+
+        result_str = []
+        count = 0
+        prev_char = ''
+        for char in chars:
+            if char == prev_char:
+                count += 1
+            else:
+                result_str.append(prev_char)
+                if count >= 1:
+                    result_str += list(str(count+1))
+                count = 0
+                prev_char = char
+        result_str.append(prev_char)
+        if count >= 1:
+                result_str += list(str(count+1))
+        result_str.pop(0)
+        # result_str.pop(0)
+        print(result_str)
+        # chars = deepcopy(result_str)
+        chars.clear()
+        for i in result_str:
+            chars.append(i)
+        return (len(chars))
+
+
+
+
+chars = ["a","a","b","b","b", "b", "b", "c","c","c"]
+# chars = ["a"]
+# chars = ["a","a","b","b","c","c","c"]
+
+# chars = ["a","b","b","b","b","b","b","b","b","b","b","b","b"]
+x = solution()
+y = x.compress(chars)
+# Example usage
+
+
+print('compressed=', chars)
+print(y)
