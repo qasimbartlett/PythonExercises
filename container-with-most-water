@@ -1,0 +1,50 @@
+'''
+https://leetcode.com/problems/container-with-most-water/solutions/3701708/best-method-c-java-python-beginner-friendly/?envType=study-plan-v2&envId=leetcode-75
+
+Logic:  Start with 2 pointers.
+if left > right:
+    move right towards center
+else:
+  move left towards center
+
+'''
+
+
+class solution(object):
+    def __init__(self):
+        print('Abba')
+        self.max_area = 0
+
+    def calcArea(self, height, left, right):
+        # print('left, right=', left, right)
+        print('val_left, val_right=', height[left], height[right])
+        # print()
+
+        cur_area = min(height[left], height[right]) * abs(right - left)
+        if cur_area > self.max_area:
+            self.max_area = cur_area
+
+    def maxArea(self, height):
+        """
+        :type height: List[int]
+        :rtype: int
+        """
+        print(height)
+        left = 0
+        right = len(height) - 1 
+        while left < right:
+            self.calcArea(height, left, right)
+            if left > right:
+                right -= 1
+            else:
+                left += 1
+        print('Max area=', self.max_area)
+
+
+
+x = solution()
+height = [1,8,6,2,5,4,8,3,7]
+height = [1,1]
+height = [1]
+height = [2,3,10,5,7,8,9]
+x.maxArea(height)
