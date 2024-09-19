@@ -1,0 +1,51 @@
+"""
+https://leetcode.com/problems/maximum-number-of-vowels-in-a-substring-of-given-length/?envType=study-plan-v2&envId=leetcode-75
+
+1. Start with an initial sub-string of size k.
+2. Have 2 pointers  start_sub_string  & end_sub_sting 
+3. Keep moving these pointers right.
+4. Old first character  s[start_sub_str-1] 
+5. new_last character   char
+6. Update # of vowels.
+
+"""
+class Solution(object):
+    def totalVowels(self, s):
+        total_vowels = 0
+        for i in s:
+            if i in ['a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U']:
+                total_vowels += 1
+        #print('totalVowels in ', s, total_vowels)
+        return total_vowels
+
+    def maxVowels(self, s, k):
+        """
+        :type s: str
+        :type k: int
+        :rtype: int
+        """
+        # Start with an initial string
+        current_sub_str = s[:k]
+        #print('Idrees current_sub_str=', current_sub_str)
+        vowels_in_current_sub_str = self.totalVowels(current_sub_str)
+        #print('vowels_in_current_sub_str =', vowels_in_current_sub_str)
+        max_vowels = vowels_in_current_sub_str
+        # Now loop thru the string
+        start_of_substring = 0
+        end_of_substring = k
+        #print('2. Idrees ', s, k, ' max_vovewl=', max_vowels)
+        for c in s[k:]:
+            #print('Idrees ', start_of_substring, end_of_substring, 'char=', c)
+            # move end of sub string to right
+            if c in  ['a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U']:
+                vowels_in_current_sub_str += 1
+        
+            if s[start_of_substring] in  ['a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U']:
+                vowels_in_current_sub_str -= 1
+            # Move right
+            end_of_substring += 1
+            start_of_substring += 1
+
+            if vowels_in_current_sub_str > max_vowels:
+                max_vowels = vowels_in_current_sub_str
+        return max_vowels
