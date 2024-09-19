@@ -17,6 +17,7 @@ class classAddBinary:
         answers_dict['000'] = (0, 0)
         answers_dict['001'] = (1, 0)
         answers_dict['010'] = (1, 0)
+        # Addf a new comment
         answers_dict['011'] = (0, 1)
         answers_dict['100'] = (1, 0)
         answers_dict['101'] = (0, 1)
