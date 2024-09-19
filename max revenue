@@ -1,0 +1,87 @@
+"""
+Problem Description:
+
+Create a function called `maxRevenue` that calculates the maximum possible revenue from renting properties
+over a given number of days.  You can choose to rent a property or skip renting it each day. 
+However, you can only rent a property if its rental price is higher than the rental price from the previous day. 
+Your goal is to maximize the total revenue.
+
+Example:
+
+Given rental prices: [50, 100, 150, 200, 50, 250, 300] and a maximum of 3 rental days:
+
+- The profitable rental prices are 50, 100, 150, 200, 250, and 300.
+- To maximize revenue, you should choose rentals with the highest prices that meet the condition
+    (i.e., each day's price is higher than the previous day's)
+    The first day is always considered a possible rental date.
+- For a maximum of 3 rental days, the best combination is prices 200, 250, and 300, leading to a total revenue of 750.
+
+MQ:   While the problem statement appears complicated a simple solution is
+      Create a list that contains only items thar are > previous item
+           Add item[i] to the expected_list only if item[i] is greater than the previously added item (ie last item of the expected_list)
+
+      From this list return last K items.
+      Sum of those last K is the answer.
+      
+
+Test Cases:
+
+| Rental Prices                       | Max Rental Days | Expected Result                                      |
+|-------------------------------------|-----------------|------------------------------------------------------|
+| [100, 200, 300]                     | 2               | 500                                                  |
+| [300, 200, 100]                     | 2               | 300                                                  |
+| []                                  | 1               | 0                                                    |
+| null                                | 1               | 0                                                    |
+| [100, 200, 300]                     | 0               | 0                                                    |
+| [150, 100, 200, 250, 300]           | 3               | 750                                                  |
+| [100, 150, 200, 250, 300, 350]      | 4               | 1100                                                 |
+| [50, 50, 50, 50, 50, 50, 50]        | 3               | 50                                                   |
+| [30, 40, 50, 60, 70, 80, 90]        | 3               | 240                                                  |
+| [100, 150, 120, 200, 250, 180, 300] | 3               | 750                                                  |
+| [100, 200, 300]                     | 1               | 300                                                  |
+| [100, "200", 300]                   | 2               | error: non-numeric value                             |
+| [100, 200, -50, 300]                | 2               | error: negative value                                |
+| [100, 200, "abc", 300]              | 2               | error: non-numeric value                             |
+| [100, 200, 300, 400]                | 5               | error: more days than prices                         |
+| [100, 200, 300]                     | 10              | error: more days than available profitable rentals   |
+
+Action Item:
+
+1. Implement the `maxRevenue` function.
+2. Test your implementation with the provided rental prices and maximum rental days.
+3. Additionally build table above into acceptance test for the the maxRevenue function you develop.
+"""
+
+class solution(object):
+    def __init__(self):
+        print('Abba')
+    
+    def maxRevenue(self, l, k):
+        current_max = 0
+        current_list = []
+        print(l, k)
+        for i in l:
+            if len(current_list) == 0:
+                current_list.append(i)
+            else:
+                previously_added = current_list[-1]
+                if i > previously_added:
+                    current_list.append(i)
+    
+        return current_list[-k:]
+
+
+
+l = [100, 200, 300]
+l = [300, 200, 100]   
+l = [100, 200, 300]  
+l = []
+l = [150, 100, 200, 250, 300] 
+l=[100, 150, 200, 250, 300, 350]
+l=[50, 50, 50, 50, 50, 50, 50] 
+l= [30, 40, 50, 60, 70, 80, 90]  
+k=3
+x = solution()
+y = x.maxRevenue(l, k)
+print(y)
+print(sum(y))
