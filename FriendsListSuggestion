@@ -1,0 +1,56 @@
+from collections import defaultdict
+
+
+class Person(object):
+   def __init__(self, my_name):
+    self.list_of_my_friends = []
+    self.my_name = my_name
+    # print(self.my_name)
+
+   def get_my_name(self):
+    return self.my_name
+
+   def setFriends(self, list_of_friends):
+    self.list_of_my_friends = list_of_friends
+
+   def getFriends(self):
+    # print('In getFriend')
+    return self.list_of_my_friends
+
+   def FriendSuggest(self):
+    dict_of_next_lvel_friends= defaultdict(int)
+    list_of_next_lvel_friends_names= []
+    for friend in self.list_of_my_friends:
+        for next_level_friend in friend.getFriends():
+            dict_of_next_lvel_friends[next_level_friend] += 1
+
+    # Sort on value
+    sorted_dict = dict(sorted(dict_of_next_lvel_friends.items(), key=lambda item: item[1]))
+
+    for friend, count in sorted_dict.items():
+        print(friend.get_my_name(), count)
+
+Rob = Person('Rob')
+A = Person('A')
+B = Person('B')
+C = Person('C')
+D = Person('D')
+E = Person('E')
+F = Person('F')
+G = Person('G')
+H = Person('H')
+I = Person('I')
+J = Person('J')
+K = Person('K')
+L = Person('L')
+M = Person('M')
+
+Rob.setFriends([A, B, C])
+B.setFriends([A, C, D, F, Rob])
+A.setFriends([B, C, D, E, Rob])
+C.setFriends([A, B, J, Rob])
+D.setFriends([B, A, F])
+G.setFriends([H, J])
+J.setFriends([H, G, K, M])
+
+Rob.FriendSuggest()
